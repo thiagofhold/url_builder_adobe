@@ -55,11 +55,10 @@
       monta_url = monta_url.slice(0, -1)
       
       var url_site_principal = String($('#site_principal').val())
-      var url_parametrizada_final = String(url_site_principal)+'?'+String(monta_url)
-      console.log(url_parametrizada_final)
-      console.log(url_site_principal)
+      var url_parametrizada_final = url_site_principal+'?'+monta_url
 
       $('#myInput').val(String(url_parametrizada_final))
+      //document.getElementById("myInput").value = String(url_parametrizada_final);
       return url_parametrizada_final
     }
 
@@ -127,7 +126,7 @@
     <div class="container">
       <div class="row">
         <div class="col-3">
-          <button class="btn btn-primary" type="button" onmousedown="monta_url_param()" class="btn btn-success">Gerar url final</button>
+          <button class="btn btn-primary" type="button" onclick="monta_url_param()" class="btn btn-success">Gerar url final</button>
         </div>
         <div class="col-3">
           <button class="btn btn-success" type="button" onmousedown="copy_clipboard()" class="btn btn-success">Copiar URL</button>
