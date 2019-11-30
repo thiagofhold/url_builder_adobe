@@ -54,9 +54,10 @@
 
       monta_url = monta_url.slice(0, -1)
       
-      var url_site_principal = $('#site_principal').val()
-      url_parametrizada_final = String(url_site_principal)+'?'+String(monta_url);
+      var url_site_principal = String($('#site_principal').val())
+      var url_parametrizada_final = String(url_site_principal)+'?'+String(monta_url)
       console.log(url_parametrizada_final)
+      console.log(url_site_principal)
 
       $('#myInput').val(String(url_parametrizada_final))
       return url_parametrizada_final
@@ -118,7 +119,7 @@
   <p>
     <div class="container">
       <div>
-        <textarea class="col-12" id="myInput" readonly=''>Insira os parametros desejados acima...</textarea>
+        <textarea class="col-12" id="myInput">Insira os parametros desejados acima...</textarea>
       </div>
     </div>
   </p>
