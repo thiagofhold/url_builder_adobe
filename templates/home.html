@@ -1,19 +1,145 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Flask Tutorial</title>
-  </head>
-  <body>
-    {% extends "template.html" %}
-    {% block content %}
-    
-    <h1>HOME DO ECOMMERCINHO</h1>
-    <p> Flask is Fun </p>
-    <p>FLASK É ANIMAL</p>
-    <p>Thiagao, conseguiu!!!</p>
-    <p>AGORA UM DEPLOY FEITO PELO GITHUB!!!</p>
-    
-    {% endblock %}
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>URL Builder - Adobe Analytics</title>
+</head>
+<body>
+  <script type="text/javascript">
+    function copy_clipboard() {
+      /* Get the text field */
+      var copyText = document.getElementById("myInput");
+
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+
+      /* Alert the copied text */
+      //alert("Copied the text: " + copyText.value);
+    }
+
+    function monta_url_param(){
+        //console.log('ESTOU AQUI!')
+
+      //BIBLIOTECA QUE RETORNA AS PROPRIEDADES DAS MÍDIAS E CAMPANHAS SELECIONADAS
+      tradutor_seletor = {
+        'midia1':'md1',
+        'midia2':'md2',
+        'midia3':'md3',
+        'campanha1':'cmp1',
+        'campanha2':'cmp2',
+        'campanha3':'cmp3'
+      }
+
+
+      tot_values = $('input')
+      monta_url = ''
+      for(var ip = 0; ip < tot_values.length; ip++){
+        //ABAIXO O VALOR E A PROPRIEDADE ID DOS VALORES DE MÍDIA
+        id_valor_midia = tot_values[ip].getAttribute('id')
+        valor_midia = tot_values[ip].value
+
+        //RETORNA O VALOR SELECIONADO NA PÁGINA E O TRADUZ DE ACORDO COM AS REGRAS DECLARADAS ACIMA
+        id_select_midia = $('#'+String(id_valor_midia.replace('valor_', 'select_'))).val()
+        valor_select_midia = tradutor_seletor[String(id_select_midia)]
+
+        if(valor_midia.length>0){
+          vl_para_append = String(valor_select_midia)+'='+valor_midia+'&'
+          monta_url+=vl_para_append
+        }
+      }
+
+      monta_url = monta_url.slice(0, -1)
+      
+      var url_site_principal = $('#site_principal').val()
+      url_parametrizada_final = String(url_site_principal)+'?'+String(monta_url);
+      console.log(url_parametrizada_final)
+
+      $('#myInput').val(String(url_parametrizada_final))
+      return url_parametrizada_final
+    }
+
+
+  </script>
+  {% extends "template.html" %}
+  {% block content %}
+
+  <h1>HOME DO ECOMMERCINHO</h1>
+  <p> Flask is Fun </p>
+  <p>FLASK É ANIMAL</p>
+  <p>Thiagao, conseguiu!!!</p>
+  <p>AGORA UM DEPLOY FEITO PELO GITHUB!!!</p>
+  <p>
+    <div class="container">
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">URL Principal:</label>
+        <textarea class="form-control" id="site_principal" placeholder="Insira a URL principal aqui..." rows="3">https://www.bancobmg.com.br/</textarea>
+      </div>
+
+    </div>
+  </p>
+  <p>
+    <div class="container">
+      <div class="row">
+        <div class="col-2 text-right">
+          <h5>Mídia:</h5>
+        </div>
+        <div class="col-3">
+          <select class="form-control" id="select_midia">
+            <option>midia1</option>
+            <option>midia2</option>
+            <option>midia3</option>
+          </select>
+        </div>
+        <div class="col-7">
+          <input type="text" class="form-control" id="valor_midia" placeholder="Insira o valor aqui...">
+        </div>
+      </div>
+    </div>
+  </p>
+  <p>
+    <div class="container">
+      <div class="row">
+        <div class="col-2 text-right">
+          <h5>Campanha:</h5>
+        </div>
+        <div class="col-3">
+          <select class="form-control" id="select_campanha">
+            <option>campanha1</option>
+            <option>campanha2</option>
+            <option>campanha3</option>
+          </select>
+        </div>
+        <div class="col-7">
+          <input type="text" class="form-control" id="valor_campanha" placeholder="Insira o valor aqui...">
+        </div>
+      </div>
+    </div>
+  </p><br><br>
+  <p>
+    <div class="container">
+      <div>
+        <textarea class="col-12" id="myInput" readonly=''>Insira os parametros desejados acima...</textarea>
+      </div>
+    </div>
+  </p>
+  <p>
+    <div class="container">
+      <div class="row">
+        <div class="col-3">
+          <button class="btn btn-primary" type="button" onmousedown="monta_url_param()" class="btn btn-success">Gerar url final</button>
+        </div>
+        <div class="col-3">
+          <button class="btn btn-success" type="button" onmousedown="copy_clipboard()" class="btn btn-success">Copiar URL</button>
+        </div>
+        
+      </div>
+    </div>
+  </p>
+
+  {% endblock %}
+</body>
 </html>
